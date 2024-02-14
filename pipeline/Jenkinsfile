@@ -1,15 +1,19 @@
 pipeline {
-    agent any
+    agent { dockerfile true }
 
     stages {
         stage('Build') {
             steps {
-                app = docker.build("simple-webapp-flask")
+                script {
+                    dockerImage = docker.build("simple-webapp-flask")
+                }
             }
         }
         stage('Deploy') {
             steps {
-                app = docker.run("simple-webapp-flask")
+                script {
+                    dockerContainer = docker.run("simple-webapp-flask")
+                }
             }
         }
     }
