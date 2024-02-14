@@ -4,12 +4,12 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh 'docker build -t simple-webapp-flask:latest .'
+                app = docker.build("simple-webapp-flask")
             }
         }
         stage('Deploy') {
             steps {
-                sh 'docker run -d -p 5000:5000 simple-webapp-flask:latest'
+                app = docker.run("simple-webapp-flask")
             }
         }
     }
